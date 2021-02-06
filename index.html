@@ -5,15 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="main.js" defer></script>
+  <link rel="stylesheet" href="main.css">
+  <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
   <title>Notes</title>
 </head>
 <body>
+<div class="container">
+<div class="the-note-maker">
  <h1>Notes:</h1> 
  <form>
- <input class="note-title" type=text value=""></input>
- <input class="note-body" type=text value=""></input>
+ <textarea class="note-title" type=text value="" placeholder="Title"></textarea>
+ <textarea class="note-body" type=text value="" placeholder="Take a note..."></textarea>
  <button class="submit-note" type="submit">Post!</button>
- <div class="posted-notes"></div>
  </form>
+</div>
+ <div class="posted-notes"></div>
+ </div>
 </body>
 </html>

@@ -1,0 +1,46 @@
+body {
+  font-family: "Lato";
+  margin-right: 20px;
+}
+
+.container {
+  display: inline-block;
+  width: 750px;
+}
+
+::placeholder {
+  font-family: "Lato";
+}
+
+textarea {
+  margin-bottom: 10px;
+  display: block;
+  border-radius: 5px;
+  border-color: #d3d3d3;
+  width: 500px;
+  outline: none;
+}
+
+.the-note-maker {
+  float: left;
+}
+
+.note-body {
+  height: 500px;
+}
+
+.submit-note {
+  margin-top: 5px;
+  display: block;
+  width: 70px;
+}
+.posted-notes {
+  float: right;
+  margin-top: 75px;
+}
+
+li {
+  list-style-type: circle;
+  font-size: 18px;
+  color: #615c5c;
+}

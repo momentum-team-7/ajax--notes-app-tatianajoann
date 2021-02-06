@@ -42,7 +42,7 @@ function doNotes () {
   }
 
 function clearInputs() {
-  const inputs = document.querySelectorAll('input')
+  const inputs = document.querySelectorAll('textarea')
   for (let field of inputs) {
     field.value = ''
   }
