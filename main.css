@@ -35,11 +35,12 @@ textarea {
   width: 70px;
 }
 .posted-notes {
+  display: list-item;
   float: right;
   margin-top: 75px;
 }
 
-li {
+.note-object {
   list-style-type: circle;
   font-size: 18px;
   color: #615c5c;

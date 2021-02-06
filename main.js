@@ -1,14 +1,19 @@
 const notesUrl = "http://localhost:3000/notes/"
 let form = document.querySelector("form")
 const button = document.querySelector(".submit-note")
+let deleteBtn = document.querySelector(".delete-button")
 
 window.addEventListener('click', e => {
     e.preventDefault();
 })
 
-form.addEventListener('submit', e => {
+button.addEventListener('click', e => {
     postNotes();
 })
+
+
+  
+
 
 
 
@@ -35,6 +40,10 @@ function doNotes () {
     title.className = "note-title"
     title.innerHTML = noteObj.title;
     deleteBtn.innerHTML = "Delete";
+    deleteBtn.className = "delete-button"
+    deleteBtn.addEventListener('click', e=> {
+      deleteNote(e.target);
+    })
     itemEl.id = noteObj.id
     itemEl.classList.add("note-object")
    // displayNoteText(itemEl, noteObj)
@@ -70,13 +79,10 @@ function postNotes() {
         title: titleNote,
         body: bodyNote
         })}).then(
-            r => {
-                console.log(r)
-                r.json()
-            }
+            r => r.json()
         ).then(
             data => {
-                console.log(data)
+                displayNotes(data)
             }
         ).catch(
             e => {console.log(e)}
@@ -87,13 +93,13 @@ function postNotes() {
 }
 
 
-// function deleteNote (element) {
-//   const todoId = element.parentElement.id
-//   fetch(`http://localhost:3000/todos/${todoId}`, {
-//     method: 'DELETE'
-//   }).then(function () {
-//     element.parentElement.remove()
-//   })
-//}
+function deleteNote (element) {
+  const noteId = element.parentElement.id
+  fetch(`${notesUrl}${noteId}`, {
+    method: 'DELETE'
+  }).then(function () {
+    element.parentElement.remove()
+  })
+}
 
 doNotes()
