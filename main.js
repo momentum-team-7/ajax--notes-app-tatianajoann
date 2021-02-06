@@ -2,9 +2,9 @@ const notesUrl = "http://localhost:3000/notes/"
 let form = document.querySelector("form")
 const button = document.querySelector(".submit-note")
 
-// window.addEventListener('click', e => {
-//     e.preventDefault();
-// })
+window.addEventListener('click', e => {
+    e.preventDefault();
+})
 
 form.addEventListener('submit', e => {
     postNotes();
@@ -29,17 +29,24 @@ function doNotes () {
 
   function displayNotes (noteObj) {
     let noteList = document.querySelector(".posted-notes")
-    const itemEl = document.createElement('li')
+    let itemEl = document.createElement('div')
+    let deleteBtn = document.createElement("button")
+    let title = document.createElement("p")
+    title.className = "note-title"
+    title.innerHTML = noteObj.title;
+    deleteBtn.innerHTML = "Delete";
     itemEl.id = noteObj.id
     itemEl.classList.add("note-object")
-    displayNoteText(itemEl, noteObj)
+   // displayNoteText(itemEl, noteObj)
+    itemEl.appendChild(title)
+    itemEl.appendChild(deleteBtn)
     noteList.appendChild(itemEl)
     clearInputs()
   }
   
-  function displayNoteText (noteListItem, noteObj) {
-    noteListItem.innerHTML = `${noteObj.title}`
-  }
+  // function displayNoteText (noteListItem, noteObj) {
+  //   noteListItem.innerHTML = `${noteObj.title}`
+  // }
 
 function clearInputs() {
   const inputs = document.querySelectorAll('textarea')
@@ -78,5 +85,15 @@ function postNotes() {
     titleNote.value = "";
     bodyNote.value = "";
 }
+
+
+// function deleteNote (element) {
+//   const todoId = element.parentElement.id
+//   fetch(`http://localhost:3000/todos/${todoId}`, {
+//     method: 'DELETE'
+//   }).then(function () {
+//     element.parentElement.remove()
+//   })
+//}
 
 doNotes()
