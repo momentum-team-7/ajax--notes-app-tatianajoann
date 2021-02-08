@@ -36,6 +36,7 @@ function doNotes () {
     let noteList = document.querySelector(".posted-notes")
     let itemEl = document.createElement('div')
     let deleteBtn = document.createElement("button")
+    let editBtn = document.createElement("button")
     let title = document.createElement("p")
     title.className = "note-title"
     title.innerHTML = noteObj.title;
@@ -44,18 +45,21 @@ function doNotes () {
     deleteBtn.addEventListener('click', e=> {
       deleteNote(e.target);
     })
+    editBtn.innerHTML = "Edit";
+    editBtn.classname = "edit"
+    editBtn.addEventListener('click', e=> {
+      editNote(e.target);
+    })
     itemEl.id = noteObj.id
     itemEl.classList.add("note-object")
-   // displayNoteText(itemEl, noteObj)
     itemEl.appendChild(title)
     itemEl.appendChild(deleteBtn)
+    itemEl.appendChild(editBtn)
     noteList.appendChild(itemEl)
     clearInputs()
   }
   
-  // function displayNoteText (noteListItem, noteObj) {
-  //   noteListItem.innerHTML = `${noteObj.title}`
-  // }
+ 
 
 function clearInputs() {
   const inputs = document.querySelectorAll('textarea')
@@ -77,7 +81,8 @@ function postNotes() {
         headers: {"Content-Type": "application/json"}, 
         body: JSON.stringify({
         title: titleNote,
-        body: bodyNote
+        body: bodyNote,
+        //date_created: moment(dateCreated).format('llll')
         })}).then(
             r => r.json()
         ).then(
@@ -100,6 +105,40 @@ function deleteNote (element) {
   }).then(function () {
     element.parentElement.remove()
   })
+}
+
+function updateNote (element) {
+  const noteId = element.parentElement.id
+  const editText = document.querySelector('.edit-text')
+  fetch(`${notesUrl}${noteId}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      item: editText.value,
+      updated_at: moment().format()
+    })
+  })
+    .then(function (res) {
+      return res.json()
+    })
+    .then(function (data) {
+      console.log(data)
+      // update the item in the DOM
+      displayItems(element.parentElement, data)
+    })
+}
+
+function editNote (element) {
+  showEditInput(element.parentElement)
+}
+
+function showEditInput (noteItem) {
+  noteItem.innerHTML = `
+      <input class="edit-text" value="${noteItem.textContent}">
+      <button class="update-note" data-note=${noteItem.id}>save</button>
+      <button class="cancel">cancel</button>
+      `
+  noteItem.querySelector('input').select()
 }
 
 doNotes()
